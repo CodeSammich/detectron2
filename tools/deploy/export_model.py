@@ -142,6 +142,7 @@ if __name__ == "__main__":
     torch_model.eval()
 
     # get a sample data
+    print(torch.__version__)
 
     # Register TACO dataset 
     from detectron2.data.datasets import register_coco_instances
