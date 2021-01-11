@@ -144,19 +144,15 @@ if __name__ == "__main__":
     # get a sample data
 
     # Register TACO dataset 
-    import os
-    os.system('cd /content/TACO/data')
-
-    # if your dataset is in COCO format, this cell can be replaced by the following three lines:
     from detectron2.data.datasets import register_coco_instances
 
     # Note: last parameter is the folder name of the image (e.g. train/)
     # This should NOT be added to the file_name field in any annotations.json file
-    register_coco_instances("taco_train", {}, "train_annotations.json", "train")
-    register_coco_instances("taco_val", {}, "val_annotations.json", "val")
+    register_coco_instances("taco_train", {}, "/content/TACO/data/train_annotations.json", "/content/TACO/data/train")
+    register_coco_instances("taco_val", {}, "/content/TACO/data/val_annotations.json", "/content/TACO/data/val")
 
     import json
-    with open("annotations.json") as fout:
+    with open("/content/TACO/data/annotations.json") as fout:
       annotations = json.load(fout)
 
     from detectron2.data import MetadataCatalog
