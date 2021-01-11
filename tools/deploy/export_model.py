@@ -142,6 +142,27 @@ if __name__ == "__main__":
     torch_model.eval()
 
     # get a sample data
+
+    # Register TACO dataset 
+    import os
+    os.system('cd /content/TACO/data')
+
+    # if your dataset is in COCO format, this cell can be replaced by the following three lines:
+    from detectron2.data.datasets import register_coco_instances
+
+    # Note: last parameter is the folder name of the image (e.g. train/)
+    # This should NOT be added to the file_name field in any annotations.json file
+    register_coco_instances("taco_train", {}, "train_annotations.json", "train")
+    register_coco_instances("taco_val", {}, "val_annotations.json", "val")
+
+    import json
+    with open("annotations.json") as fout:
+      annotations = json.load(fout)
+
+    from detectron2.data import MetadataCatalog
+    MetadataCatalog.get("taco_train").set(thing_classes = [category['name'] for category in annotations['categories']])
+    MetadataCatalog.get("taco_val").set(thing_classes = [category['name'] for category in annotations['categories']])
+  
     data_loader = build_detection_test_loader(cfg, cfg.DATASETS.TEST[0])
     first_batch = next(iter(data_loader))
 
