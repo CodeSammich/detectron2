@@ -4,6 +4,7 @@ import argparse
 import os
 import onnx
 import torch
+print(torch.__version__)
 from torch import Tensor, nn
 
 from detectron2.checkpoint import DetectionCheckpointer
@@ -142,7 +143,6 @@ if __name__ == "__main__":
     torch_model.eval()
 
     # get a sample data
-    print(torch.__version__)
 
     # Register TACO dataset 
     from detectron2.data.datasets import register_coco_instances
